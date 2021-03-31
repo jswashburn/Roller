@@ -28,4 +28,9 @@ This time around I decided to use *my own 3d models*. I've been learning blender
     Refining the player movement, getting movement to feel right and fun
   </dd>
   
+  <dt>Title</dt>
+  <dd>
+    Title could use some work. Need ideas, but we'll see once more game is developed
+  </dd>
+  
 </dl>
