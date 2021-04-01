@@ -2,6 +2,7 @@
 
 public static class ListExtensions
 {
+    // Removes and returns item at index
     public static T Pop<T>(this List<T> original, int index)
     {
         T thing = original[index];

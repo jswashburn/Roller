@@ -8,7 +8,7 @@ public static class VectorExtensions
             newX ?? original.x,
             newY ?? original.y,
             newZ ?? original.z
-            );
+        );
 
     public static Vector3 WithOffset(this Vector3 original,
         float? xOffset = null, float? yOffset = null, float? zOffset = null)
@@ -16,7 +16,7 @@ public static class VectorExtensions
             original.x + xOffset ?? original.x,
             original.y + yOffset ?? original.y,
             original.z + zOffset ?? original.z
-            );
+        );
 
     // Is this vector 'grounded' with respect to groundCheckCollider?
     public static bool IsGrounded(this Vector3 original, Collider groundCheckCollider)
