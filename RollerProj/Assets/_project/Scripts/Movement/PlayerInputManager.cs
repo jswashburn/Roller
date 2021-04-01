@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(ICharacterController<PlayerMoveOption>))]
+[RequireComponent(typeof(ICharacterController))]
 public class PlayerInputManager : MonoBehaviour
 {
-    ICharacterController<PlayerMoveOption> _characterController;
+    ICharacterController _characterController;
     Controls _controls; // Provides access to control actions from unity's new input system
     PlayerMoveOption _moveOptions; // Movement instructions for character controller
 
@@ -20,7 +20,7 @@ public class PlayerInputManager : MonoBehaviour
 
     void Awake()
     {
-        _characterController = GetComponent<ICharacterController<PlayerMoveOption>>();
+        _characterController = GetComponent<ICharacterController>();
         _moveOptions = new PlayerMoveOption();
 
         _controls = new Controls();

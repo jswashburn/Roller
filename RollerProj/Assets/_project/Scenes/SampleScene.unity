@@ -532,7 +532,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 0.8895899, y: 1}
+    m_SensorSize: {x: 0.9872814, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -753,7 +753,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 0.8895899, y: 1}
+    m_SensorSize: {x: 0.9872814, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1144,7 +1144,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 0.8895899, y: 1}
+    m_SensorSize: {x: 0.9872814, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -15883,10 +15883,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 300
-  moveSpeed: 4
-  maxSpeed: 7
-  extraJumps: 2
-  airControl: 1
+  moveSpeed: 0
+  maxSpeed: 0
+  extraJumps: 0
+  airControl: 0
   groundCheckCollider: {fileID: 792686004}
   character: {fileID: 1812124979}
 --- !u!4 &1814097012 stripped
@@ -15948,7 +15948,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 0.8895899, y: 1}
+    m_SensorSize: {x: 0.9872814, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -16108,8 +16108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2117152894}
   - component: {fileID: 2117152893}
-  - component: {fileID: 2117152891}
-  - component: {fileID: 2117152892}
+  - component: {fileID: 2117152895}
   m_Layer: 9
   m_Name: Kill Box
   m_TagString: Untagged
@@ -16117,33 +16116,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2117152891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117152890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14767226f459371428a7a93e13df1d49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2117152892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117152890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f42676235f89a2446905ce77d3d22080, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  following: {fileID: 1812124981}
-  character: {fileID: 1812124983}
-  yOffset: -20
 --- !u!65 &2117152893
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16171,6 +16143,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2117152895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117152890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ced9528fdca3c149ba09d5ae19ce9a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  following: {fileID: 1812124981}
+  character: {fileID: 1812124983}
+  killBoxDepth: 10
+  onEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2117152895}
+        m_MethodName: ReloadScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &2124784773
 PrefabInstance:
   m_ObjectHideFlags: 0

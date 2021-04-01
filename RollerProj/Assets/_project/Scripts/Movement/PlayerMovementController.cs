@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-public class PlayerMovementController : MonoBehaviour, ICharacterController<PlayerMoveOption>
+public class PlayerMovementController : MonoBehaviour, ICharacterController
 {
     [SerializeField] float jumpForce;
     [SerializeField] float moveSpeed;
@@ -16,9 +16,9 @@ public class PlayerMovementController : MonoBehaviour, ICharacterController<Play
     public event Action OnNotGrounded;
     public event Action OnGrounded;
 
-    bool CanDoubleJump() => _jumpsAvailable > 0;
+    bool canDoubleJump => _jumpsAvailable > 0;
 
-    public void Move(PlayerMoveOption moveOptions)
+    public void Move(IMoveOption moveOptions)
     {
         // Move
         bool grounded = transform.position.IsGrounded(groundCheckCollider);
@@ -34,11 +34,13 @@ public class PlayerMovementController : MonoBehaviour, ICharacterController<Play
             OnNotGrounded?.Invoke();
 
             if (airControl)
+            {
                 character.MoveTowards(moveOptions.MoveDirection, moveSpeed, maxSpeed);
+            }
         }
 
         // Jump
-        if (moveOptions.JumpRequested && (grounded || CanDoubleJump()))
+        if (moveOptions.JumpRequested && (grounded || canDoubleJump))
         {
             character.Jump(jumpForce);
             _jumpsAvailable--;

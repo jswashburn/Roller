@@ -9,7 +9,7 @@ public class Track : MonoBehaviour
         animator.SetTrigger("Disappear");
     }
 
-    // Called as soon as "Disappear" animation finishes
+    // Called as soon as "Disappear" animation finishes ... supposedly
     public void DeActivate()
     {
         Debug.Log("Deactivate called");
