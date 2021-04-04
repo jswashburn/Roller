@@ -40,8 +40,6 @@ public class KillBox : MonoBehaviour
     // Will run when not grounded
     void FollowWithoutYOffset() =>
         transform.position = following.position.With(
-            newX: following.position.x,
-            newY: transform.position.y,
-            newZ: following.position.z
+            newY: transform.position.y
         );
 }

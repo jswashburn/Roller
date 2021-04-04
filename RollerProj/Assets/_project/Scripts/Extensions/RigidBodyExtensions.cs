@@ -7,23 +7,19 @@ public static class RigidBodyExtensions
         original.AddForce(Vector3.up * force);
     }
 
-    public static void MoveTowards(this Rigidbody original, Vector3 towards, float speed)
+    public static void MoveTowards(this Rigidbody original, Vector3 where, float maxSpeed)
     {
-        original.AddForce(towards * speed);
-    }
-
-    public static void MoveTowards(this Rigidbody original, Vector3 towards, float speed, float maxSpeed)
-    {
-        original.AddForce(towards * speed);
+        original.AddForce(where);
         original.ClampSpeed(maxSpeed);
     }
 
     public static void ClampSpeed(this Rigidbody original, float maxSpeed)
     {
-        // If we go over our max speed, normalize our velocity and re-scale by max speed
-        if (original.velocity.magnitude > maxSpeed)
+        float currentSpeed = original.velocity.magnitude;
+        if (currentSpeed > maxSpeed)
         {
-            original.velocity = original.velocity.normalized * maxSpeed;
+            Vector3 clamped = original.velocity.normalized * maxSpeed;
+            original.velocity = clamped;
         }
     }
 }

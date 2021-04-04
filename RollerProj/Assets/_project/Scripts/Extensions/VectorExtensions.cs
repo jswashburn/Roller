@@ -18,7 +18,6 @@ public static class VectorExtensions
             original.z + zOffset ?? original.z
         );
 
-    // Is this vector 'grounded' with respect to groundCheckCollider?
     public static bool IsGrounded(this Vector3 original, Collider groundCheckCollider)
         => Physics.Raycast(
             origin: original,

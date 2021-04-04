@@ -1,29 +1,40 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(ICharacterController))]
+[RequireComponent(typeof(PlayerMovementController))]
 public class PlayerInputManager : MonoBehaviour
 {
-    ICharacterController _characterController;
-    Controls _controls; // Provides access to control actions from unity's new input system
-    PlayerMoveOption _moveOptions; // Movement instructions for character controller
+    PlayerMovementController _playerMovementController;
+    Controls _controls;
+    PlayerMoveOption _moveOptions;
 
-    void OnEnable() => _controls.Gameplay.Enable();
-
-    void OnDisable() => _controls.Gameplay.Disable();
-
-    void FixedUpdate()
+    void OnEnable()
     {
-        _characterController.Move(_moveOptions);
-        _moveOptions.JumpRequested = false;
+        _controls.Gameplay.Enable();
+    }
+
+    void OnDisable()
+    {
+        _controls.Gameplay.Disable();
     }
 
     void Awake()
     {
-        _characterController = GetComponent<ICharacterController>();
+        _playerMovementController = GetComponent<PlayerMovementController>();
         _moveOptions = new PlayerMoveOption();
-
         _controls = new Controls();
+
+        RegisterControlActions();
+    }
+
+    void FixedUpdate()
+    {
+        _playerMovementController.Control(_moveOptions);
+        _moveOptions.JumpRequested = false;
+    }
+
+    void RegisterControlActions()
+    {
         _controls.Gameplay.Jump.performed += OnJump;
         _controls.Gameplay.Move.performed += OnMovePerformed;
         _controls.Gameplay.Move.canceled += OnMoveCancelled;
