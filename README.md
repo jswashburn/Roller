@@ -10,22 +10,27 @@ This time around I decided to use *my own 3d models*. I've been learning blender
   
   <dt>Infinite-scrolling track</dt>
   <dd>
-    Trying to create an infinite scrolling track with animations, but instead of creating and destroying game objects I want to use object pooling (a concept I'm still investigating and learning about)
+    The infinite scrolling track works, now it's just a matter of creating more track pieces in blender. The next step is to make it work with other objects, like collectable items. I also need to add some variation in the spawn height of the pieces, so the player isn't constantly moving in a straight line.
   </dd>
   
-  <dt>Asteroids</dt>
+  <dt>Asteroids / Space debris</dt>
   <dd>
-    Using the particle system to have asteroids in the background
+    Asteroid particles are working, now just need to add some more asteroid meshes so they don't all look the same. Going to add a few more things as well, like sattelites.
   </dd>
   
   <dt>Gameplay loop</dt>
   <dd>
-    Thinking in general about how the game is going to play out, new gameplay ideas, progression ideas
+    Thinking in general about how the game is going to play out, new gameplay ideas, progression ideas. The main idea is this: Run away from the thing chasing you for as long as possible, collect coins along the way, and purchase new skins with your coins.
+  </dd>
+  
+  <dt>Enemy</dt>
+  <dd>
+    Need to come up with an enemy that will chase the player.
   </dd>
   
   <dt>Movement</dt>
   <dd>
-    Refining the player movement, getting movement to feel right and fun
+    Refining the player movement, getting movement to feel right and fun.
   </dd>
   
   <dt>Title</dt>
