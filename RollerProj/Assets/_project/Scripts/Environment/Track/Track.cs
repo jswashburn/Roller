@@ -23,7 +23,7 @@ public class Track : MonoBehaviour
     public void AppearAt(Vector3 pos)
     {
         transform.position = pos;
-        _animator.SetTrigger("Appear");
+        // _animator.SetTrigger("Appear");
     }
 
     public override string ToString()
