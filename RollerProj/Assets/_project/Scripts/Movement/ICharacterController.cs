@@ -1,4 +1,4 @@
-public interface ICharacterController<in TMoveOption>
+public interface ICharacterController<TMoveOption> where TMoveOption : IMoveOption
 {
-    void Move(TMoveOption moveOption);
+    void Control(TMoveOption moveOption);
 }

@@ -1,41 +1,58 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(ICharacterController<PlayerMoveOption>))]
+[RequireComponent(typeof(PlayerMovementController))]
 public class PlayerInputManager : MonoBehaviour
 {
-    ICharacterController<PlayerMoveOption> _characterController;
-    Controls _controls; // Provides access to control actions from unity's new input system
-    PlayerMoveOption _moveOptions; // Movement instructions for character controller
+    PlayerMovementController _playerMovementController;
+    Controls _controls;
+    PlayerMoveOption _moveOptions;
 
-    void OnEnable() => _controls.Gameplay.Enable();
+    void OnEnable()
+    {
+        _controls.Gameplay.Enable();
+    }
 
-    void OnDisable() => _controls.Gameplay.Disable();
+    void OnDisable()
+    {
+        _controls.Gameplay.Disable();
+    }
 
     void Awake()
     {
-        _characterController = GetComponent<ICharacterController<PlayerMoveOption>>();
+        _playerMovementController = GetComponent<PlayerMovementController>();
         _moveOptions = new PlayerMoveOption();
         _controls = new Controls();
 
-        // Jump
-        _controls.Gameplay.Jump.performed += ctx => _moveOptions.JumpRequested = true;
-
-        // Move
-        _controls.Gameplay.Move.performed += ctx =>
-        {
-            Vector2 input = ctx.ReadValue<Vector2>();
-            _moveOptions.MoveDirection = new Vector3(input.x, 0f, input.y);
-        };
-        _controls.Gameplay.Move.canceled += ctx => _moveOptions.MoveDirection = Vector3.zero;
-
-        // Brake
-        _controls.Gameplay.Brake.performed += ctx => _moveOptions.SlowDownRequested = true;
-        _controls.Gameplay.Brake.canceled += ctx => _moveOptions.SlowDownRequested = false;
+        RegisterControlActions();
     }
 
     void FixedUpdate()
     {
-        _characterController.Move(_moveOptions);
+        _playerMovementController.Control(_moveOptions);
         _moveOptions.JumpRequested = false;
+    }
+
+    void RegisterControlActions()
+    {
+        _controls.Gameplay.Jump.performed += OnJump;
+        _controls.Gameplay.Move.performed += OnMovePerformed;
+        _controls.Gameplay.Move.canceled += OnMoveCancelled;
+    }
+
+    void OnJump(InputAction.CallbackContext ctx)
+    {
+        _moveOptions.JumpRequested = true;
+    }
+
+    void OnMovePerformed(InputAction.CallbackContext ctx)
+    {
+        Vector2 input = ctx.ReadValue<Vector2>();
+        _moveOptions.MoveDirection = new Vector3(input.x, 0f, input.y);
+    }
+
+    void OnMoveCancelled(InputAction.CallbackContext ctx)
+    {
+        _moveOptions.MoveDirection = Vector3.zero;
     }
 }

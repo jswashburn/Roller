@@ -2,25 +2,32 @@
 
 public class Track : MonoBehaviour
 {
-    public Animator animator;
+    public Transform cycleTrigger;
 
-    public void Disappear()
-    {
-        animator.SetTrigger("Disappear");
-    }
+    [SerializeField] Animator _animator;
+    [SerializeField] MeshRenderer _mesh;
+    [SerializeField] Collider _collider;
 
-    // Called as soon as "Disappear" animation finishes
+    public bool Despawned => gameObject.activeSelf;
+
     public void DeActivate()
     {
-        Debug.Log("Deactivate called");
         gameObject.SetActive(false);
     }
 
-    public void Appear(Vector3 where)
+    public void Activate()
     {
         gameObject.SetActive(true);
-        transform.position = where;
-        animator.SetTrigger("Appear");
     }
 
+    public void AppearAt(Vector3 pos)
+    {
+        transform.position = pos;
+        // _animator.SetTrigger("Appear");
+    }
+
+    public override string ToString()
+    {
+        return transform.name;
+    }
 }
