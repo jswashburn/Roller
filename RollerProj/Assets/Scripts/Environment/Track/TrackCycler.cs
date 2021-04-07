@@ -4,8 +4,6 @@ namespace Roller.Environment.Track
 {
     public class TrackCycler : MonoBehaviour
     {
-        // TODO: Make the animations work
-
         [SerializeField] Track[] prefabs; // Track prefabs to choose from
         [SerializeField] Transform player;
         [SerializeField] float appearingGap;
