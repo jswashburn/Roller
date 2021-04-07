@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace Roller.Extensions
 {
@@ -6,18 +7,19 @@ namespace Roller.Extensions
     {
         public static string Stringify<T>(this LinkedList<T> original)
         {
-            string s = "[";
+            StringBuilder nodes = new StringBuilder("[");
             LinkedListNode<T> currentNode = original.First;
             while (true)
             {
-                s += $"{currentNode.Value} -> ";
+                nodes.Append($"{currentNode.Value} -> ");
                 if (currentNode.Next != null)
                 {
                     currentNode = currentNode.Next;
                 }
                 else
                 {
-                    return $"{s}]";
+                    nodes.Append($"{nodes}]");
+                    return nodes.ToString();
                 }
             }       
         }
