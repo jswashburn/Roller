@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Roller.Movement
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovementController : MonoBehaviour, ICharacterController<PlayerMoveOption>
     {
         [SerializeField] float jumpForce;
@@ -12,8 +13,8 @@ namespace Roller.Movement
         [SerializeField] int extraJumps;
         [SerializeField] bool airControl;
         [SerializeField] Collider groundCheckCollider;
-        [SerializeField] Rigidbody character;
 
+        Rigidbody _character;
         int _jumpsAvailable;
 
         public event Action OnNotGrounded;
@@ -21,6 +22,11 @@ namespace Roller.Movement
 
         bool canDoubleJump => _jumpsAvailable > 0;
         bool grounded => transform.position.IsGrounded(groundCheckCollider);
+
+        void Awake()
+        {
+            _character = GetComponent<Rigidbody>();
+        }
 
         public void Control(PlayerMoveOption moveOptions)
         {
@@ -35,7 +41,7 @@ namespace Roller.Movement
                 OnGrounded?.Invoke();
                 _jumpsAvailable = extraJumps;
 
-                character.MoveTowards(moveOptions.MoveDirection * moveSpeed, maxSpeed);
+                _character.MoveTowards(moveOptions.MoveDirection * moveSpeed, maxSpeed);
             }
             else
             {
@@ -43,7 +49,7 @@ namespace Roller.Movement
 
                 if (airControl)
                 {
-                    character.MoveTowards(moveOptions.MoveDirection * moveSpeed, maxSpeed);
+                    _character.MoveTowards(moveOptions.MoveDirection * moveSpeed, maxSpeed);
                 }
             }
         }
@@ -52,7 +58,7 @@ namespace Roller.Movement
         {
             if (moveOptions.JumpRequested && (grounded || canDoubleJump))
             {
-                character.Jump(jumpForce);
+                _character.Jump(jumpForce);
                 _jumpsAvailable--;
             }
         }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Roller.Environment.Track
 {
@@ -6,9 +7,9 @@ namespace Roller.Environment.Track
     {
         public Transform cycleTrigger;
 
-        [SerializeField] Animator _animator;
-        [SerializeField] MeshRenderer _mesh;
-        [SerializeField] Collider _collider;
+        [SerializeField] Animator animator;
+        [SerializeField] MeshRenderer mesh;
+        [SerializeField] Collider collider;
 
         public bool Despawned => gameObject.activeSelf;
 

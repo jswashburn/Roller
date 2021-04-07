@@ -12,7 +12,7 @@ namespace Roller.DeathMechanics
         [SerializeField] PlayerMovementController character;
         [SerializeField] float killBoxDepth;
         [SerializeField] UnityEvent onEntered;
-
+        
         void OnEnable()
         {
             character.OnGrounded += FollowWithYOffset;

@@ -3,10 +3,10 @@ using UnityEngine.InputSystem;
 
 namespace Roller.Movement
 {
-    [RequireComponent(typeof(PlayerMovementController))]
     public class PlayerInputManager : MonoBehaviour
     {
-        PlayerMovementController _playerMovementController;
+        [SerializeField] PlayerMovementController playerController;
+        
         Controls _controls;
         PlayerMoveOption _moveOptions;
 
@@ -22,7 +22,6 @@ namespace Roller.Movement
 
         void Awake()
         {
-            _playerMovementController = GetComponent<PlayerMovementController>();
             _moveOptions = new PlayerMoveOption();
             _controls = new Controls();
 
@@ -31,7 +30,7 @@ namespace Roller.Movement
 
         void FixedUpdate()
         {
-            _playerMovementController.Control(_moveOptions);
+            playerController.Control(_moveOptions);
             _moveOptions.JumpRequested = false;
         }
 

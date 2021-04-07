@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace Roller.Extensions
 {
@@ -14,14 +15,14 @@ namespace Roller.Extensions
 
         public static string Stringify<T>(this IList<T> original)
         {
-            string s = "[ ";
-        
-            foreach (T item in original)
-            {
-                s += $"{item}, ";
-            }
+            StringBuilder items = new StringBuilder("[");
 
-            return $"{s} ]";        
+            foreach (T item in original)
+                items.Append($"{item}, ");
+
+            items.Append($"{items}]");
+            
+            return items.ToString();
         }
     }
 }
