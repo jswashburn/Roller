@@ -7,10 +7,10 @@ namespace Roller.Environment.Track
 {
     public class TrackList
     {
-        float _appearingGap;
-        float _appearingDepth;
-        LinkedList<Track> _track;
-        List<Track> _despawned;
+        readonly float _appearingGap;
+        readonly float _appearingDepth;
+        readonly LinkedList<Track> _track;
+        readonly List<Track> _inactiveTracks;
 
         Track First => _track.First.Value;
         Track Second => _track.First.Next.Value;
@@ -25,7 +25,7 @@ namespace Roller.Environment.Track
 
             _track = new LinkedList<Track>(initialTracks
                 .Where(track => track.gameObject.activeSelf).ToList());
-            _despawned = new List<Track>(initialTracks
+            _inactiveTracks = new List<Track>(initialTracks
                 .Where(track => !track.gameObject.activeSelf).ToList());
         }
 
@@ -48,21 +48,21 @@ namespace Roller.Environment.Track
 
         void MakeTrackDisappear(Track trackPiece)
         {
-            _despawned.Add(trackPiece);
+            _inactiveTracks.Add(trackPiece);
             trackPiece.DeActivate();
         }
 
         Track GetNewTrackPiece()
         {
-            Track newTrackPiece = _despawned.Pop<Track>(Random.Range(0, _despawned.Count - 1));
+            Track newTrackPiece = _inactiveTracks.Pop<Track>(Random.Range(0, _inactiveTracks.Count - 1));
             return newTrackPiece;
         }
 
         public override string ToString()
         {
             string activeTracks = $"Active tracks:\t{_track.Stringify()}";
-            string despawnedTracks = $"Despawned tracks:\t{_despawned.Stringify()}";
-            return $"{activeTracks}\n{despawnedTracks}";
+            string inactiveTracks = $"Despawned tracks:\t{_inactiveTracks.Stringify()}";
+            return $"{activeTracks}\n{inactiveTracks}";
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Roller.Environment.Track
 {
     public class TrackCycler : MonoBehaviour
     {
-        [SerializeField] Track[] prefabs; // Track prefabs to choose from
+        [SerializeField] Track[] trackPieces; // Track prefabs to choose from
         [SerializeField] Transform player;
         [SerializeField] float appearingGap;
         [SerializeField] float appearingDepth;
@@ -15,16 +15,13 @@ namespace Roller.Environment.Track
 
         void Awake()
         {
-            _trackList = new TrackList(appearingGap, appearingDepth, prefabs);
+            _trackList = new TrackList(appearingGap, appearingDepth, trackPieces);
         }
 
         void Update()
         {
             if (PlayerCrossedCyclePoint)
-            {
-                Debug.Log(_trackList);
                 _trackList.CycleTrack();
-            }
         }
     }
 }
