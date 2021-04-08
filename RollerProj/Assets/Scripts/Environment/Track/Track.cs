@@ -25,31 +25,35 @@ namespace Roller.Environment.Track
                 .Where(track => !track.IsActive).ToList());
         }
         
-        public void PositionAt(Vector3 position, float gap)
+        public void PositionAt(Vector3 position, float gap, float heightOffset)
         {
             Vector3 nextPosition = position;
             _trackLinkedList.ForEachValue(trackPiece =>
             {
                 if (trackPiece.gameObject.activeSelf)
                     trackPiece.AppearAt(nextPosition);
-                nextPosition = nextPosition.WithOffset(gap);
+                nextPosition = nextPosition.WithOffset(
+                    xOffset: gap,
+                    yOffset: heightOffset);
             });
         }
 
-        public void CycleTrack(float gap)
+        public void CycleTrack(float gap, float heightOffset)
         {
             TrackPiece newTrackPiece = GetNewTrackPiece();
 
             MakeTrackDisappear(First);
-            MakeTrackAppear(newTrackPiece, gap);
+            MakeTrackAppear(newTrackPiece, gap, heightOffset);
 
             _trackLinkedList.Cycle(newTrackPiece);
         }
 
-        void MakeTrackAppear(TrackPiece trackPiece, float gap)
+        void MakeTrackAppear(TrackPiece trackPiece, float gap, float heightOffset)
         {
             trackPiece.Activate();
-            trackPiece.AppearAt(LastTrackPosition.WithOffset(gap));
+            trackPiece.AppearAt(LastTrackPosition.WithOffset(
+                xOffset: gap,
+                yOffset: heightOffset));
         }
 
         void MakeTrackDisappear(TrackPiece trackPiece)
