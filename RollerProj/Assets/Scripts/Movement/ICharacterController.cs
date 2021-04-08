@@ -1,6 +1,6 @@
 namespace Roller.Movement
 {
-    public interface ICharacterController<TMoveOption> where TMoveOption : IMoveOption
+    public interface ICharacterController<in TMoveOption> where TMoveOption : IMoveOption
     {
         void Control(TMoveOption moveOption);
     }

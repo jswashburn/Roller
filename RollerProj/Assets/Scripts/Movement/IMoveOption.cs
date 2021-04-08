@@ -4,6 +4,6 @@ namespace Roller.Movement
 {
     public interface IMoveOption
     {
-        Vector3 MoveDirection { get; set; }
+        Vector3 MoveDirection { get; }
     }
 }

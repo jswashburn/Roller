@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Roller.Core
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, ICollector
     {
         int _points = 0;
         
@@ -18,9 +18,11 @@ namespace Roller.Core
             Collectable.Collected -= Collect;
         }
 
-        void Collect(Item item)
+        public void Collect(Item item)
         {
+            Debug.Log($"Player Collect ({item}), val: {(int)item})");
             _points += (int) item;
+            Debug.Log($"Player Collect Points: {_points}");
         }
     }
 }

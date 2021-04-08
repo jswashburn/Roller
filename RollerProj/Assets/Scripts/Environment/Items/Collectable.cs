@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using Roller.Core;
 
 namespace Roller.Environment.Items
 {
@@ -12,15 +11,15 @@ namespace Roller.Environment.Items
     
     public class Collectable : MonoBehaviour
     {
-        public Item itemType;
+        [SerializeField] Item itemType;
 
         public static event Action<Item> Collected;
         
         void OnTriggerEnter(Collider other)
         {
-            bool isPlayer = other.gameObject.GetComponentInChildren<Player>() != null;
+            bool isCollector = other.gameObject.GetComponentInChildren<ICollector>() != null;
             
-            if (isPlayer)
+            if (isCollector)
                 Collected?.Invoke(itemType);
             
             Destroy(transform.root.gameObject);

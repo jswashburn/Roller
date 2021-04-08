@@ -48,7 +48,7 @@ namespace Roller.Movement
 
         void OnMovePerformed(InputAction.CallbackContext ctx)
         {
-            Vector2 input = ctx.ReadValue<Vector2>();
+            var input = ctx.ReadValue<Vector2>();
             _moveOptions.MoveDirection = new Vector3(input.x, 0f, input.y);
         }
 
