@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Roller.Extensions
@@ -7,7 +8,7 @@ namespace Roller.Extensions
     {
         public static string Stringify<T>(this LinkedList<T> original)
         {
-            StringBuilder nodes = new StringBuilder("[");
+            var nodes = new StringBuilder("[");
             LinkedListNode<T> currentNode = original.First;
             while (true)
             {
@@ -22,6 +23,17 @@ namespace Roller.Extensions
                     return nodes.ToString();
                 }
             }       
+        }
+
+        public static void ForEachValue<T>(this LinkedList<T> original, Action<T> action)
+        {
+            LinkedListNode<T> currentNode = original.First;
+
+            while (currentNode != null)
+            {
+                action(currentNode.Value);
+                currentNode = currentNode.Next;
+            }
         }
 
         public static void Cycle<T>(this LinkedList<T> original, T newItem)

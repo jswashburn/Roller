@@ -1,5 +1,4 @@
-﻿using System;
-using Roller.Environment.Items;
+﻿using Roller.Environment.Items;
 using UnityEngine;
 
 namespace Roller.Core
@@ -20,9 +19,8 @@ namespace Roller.Core
 
         public void Collect(Item item)
         {
-            Debug.Log($"Player Collect ({item}), val: {(int)item})");
             _points += (int) item;
-            Debug.Log($"Player Collect Points: {_points}");
+            Debug.Log($"Player Collected {item}\nPoints: {_points}");
         }
     }
 }

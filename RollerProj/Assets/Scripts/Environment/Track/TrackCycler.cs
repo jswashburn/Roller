@@ -4,24 +4,27 @@ namespace Roller.Environment.Track
 {
     public class TrackCycler : MonoBehaviour
     {
-        [SerializeField] Track[] trackPieces; // Track prefabs to choose from
         [SerializeField] Transform player;
+        [SerializeField] Transform trackStart;
         [SerializeField] float appearingGap;
-        [SerializeField] float appearingDepth;
 
-        TrackList _trackList;
+        Track _track;
 
-        bool PlayerCrossedCyclePoint => player.transform.position.x >= _trackList.TriggerPoint.position.x;
+        bool PlayerCrossedCyclePoint => player.transform.position.x >= _track.CurrentTriggerPoint.position.x;
 
         void Awake()
         {
-            _trackList = new TrackList(appearingGap, appearingDepth, trackPieces);
+            TrackPiece[] trackPieces = GetComponentsInChildren<TrackPiece>(includeInactive: true);
+            Vector3 initialPosition = trackStart.position;
+            
+            _track = new Track(trackPieces, initialPosition);
+            _track.PositionAt(initialPosition, appearingGap);
         }
 
         void Update()
         {
             if (PlayerCrossedCyclePoint)
-                _trackList.CycleTrack();
+                _track.CycleTrack(appearingGap);
         }
     }
 }
