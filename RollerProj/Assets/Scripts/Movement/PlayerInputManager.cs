@@ -6,19 +6,9 @@ namespace Roller.Movement
     public class PlayerInputManager : MonoBehaviour
     {
         [SerializeField] PlayerMovementController playerController;
-        
+
         Controls _controls;
         PlayerMoveOption _moveOptions;
-
-        void OnEnable()
-        {
-            _controls.Gameplay.Enable();
-        }
-
-        void OnDisable()
-        {
-            _controls.Gameplay.Disable();
-        }
 
         void Awake()
         {
@@ -32,6 +22,16 @@ namespace Roller.Movement
         {
             playerController.Control(_moveOptions);
             _moveOptions.JumpRequested = false;
+        }
+
+        void OnEnable()
+        {
+            _controls.Gameplay.Enable();
+        }
+
+        void OnDisable()
+        {
+            _controls.Gameplay.Disable();
         }
 
         void RegisterControlActions()
@@ -48,7 +48,7 @@ namespace Roller.Movement
 
         void OnMovePerformed(InputAction.CallbackContext ctx)
         {
-            Vector2 input = ctx.ReadValue<Vector2>();
+            var input = ctx.ReadValue<Vector2>();
             _moveOptions.MoveDirection = new Vector3(input.x, 0f, input.y);
         }
 

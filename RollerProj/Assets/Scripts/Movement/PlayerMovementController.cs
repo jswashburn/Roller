@@ -1,5 +1,5 @@
 ﻿using System;
-using Roller.Extensions;
+using Roller.Extensions.Unity;
 using UnityEngine;
 
 namespace Roller.Movement
@@ -17,11 +17,8 @@ namespace Roller.Movement
         Rigidbody _character;
         int _jumpsAvailable;
 
-        public event Action OnNotGrounded;
-        public event Action OnGrounded;
-
-        bool canDoubleJump => _jumpsAvailable > 0;
-        bool grounded => transform.position.IsGrounded(groundCheckCollider);
+        bool CanDoubleJump => _jumpsAvailable > 0;
+        bool Grounded => transform.position.IsGrounded(groundCheckCollider);
 
         void Awake()
         {
@@ -34,9 +31,12 @@ namespace Roller.Movement
             Jump(moveOptions);
         }
 
-        void Move(PlayerMoveOption moveOptions)
+        public event Action OnNotGrounded;
+        public event Action OnGrounded;
+
+        void Move(IMoveOption moveOptions)
         {
-            if (grounded)
+            if (Grounded)
             {
                 OnGrounded?.Invoke();
                 _jumpsAvailable = extraJumps;
@@ -48,15 +48,15 @@ namespace Roller.Movement
                 OnNotGrounded?.Invoke();
 
                 if (airControl)
-                {
                     _character.MoveTowards(moveOptions.MoveDirection * moveSpeed, maxSpeed);
-                }
             }
         }
 
         void Jump(PlayerMoveOption moveOptions)
         {
-            if (moveOptions.JumpRequested && (grounded || canDoubleJump))
+            bool shouldJump = moveOptions.JumpRequested && (Grounded || CanDoubleJump);
+
+            if (shouldJump)
             {
                 _character.Jump(jumpForce);
                 _jumpsAvailable--;
