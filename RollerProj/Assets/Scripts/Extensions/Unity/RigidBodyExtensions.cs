@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Roller.Extensions
+namespace Roller.Extensions.Unity
 {
     public static class RigidBodyExtensions
     {

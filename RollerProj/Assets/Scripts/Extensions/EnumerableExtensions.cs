@@ -14,7 +14,7 @@ namespace Roller.Extensions
                 items.Append($"{item}, ");
 
             items.Append($"{items}]");
-            
+
             return items.ToString();
         }
 

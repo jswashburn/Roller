@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace Roller.Extensions
 {
@@ -13,15 +15,20 @@ namespace Roller.Extensions
             return thing;
         }
 
+        public static int RandIdx(this IList original)
+        {
+            return Random.Range(0, original.Count - 1);
+        }
+
         public static string Stringify<T>(this IList<T> original)
         {
-            StringBuilder items = new StringBuilder("[");
+            var items = new StringBuilder("[");
 
             foreach (T item in original)
                 items.Append($"{item}, ");
 
             items.Append($"{items}]");
-            
+
             return items.ToString();
         }
     }

@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 using Roller.Extensions;
-using UnityEngine;
 
 namespace Roller.Tests.EditMode
 {
@@ -18,11 +16,8 @@ namespace Roller.Tests.EditMode
             });
 
             // ACT
-            var lowerCased = new List<string>();
-            stringList.ForEachValue(s =>
-            {
-                lowerCased.Add(s.ToLower());
-            });
+            List<string> lowerCased = new List<string>();
+            stringList.ForEachValue(s => { lowerCased.Add(s.ToLower()); });
 
             // ASSERT
             Assert.AreEqual("one", lowerCased[0]);

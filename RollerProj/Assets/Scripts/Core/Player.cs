@@ -5,8 +5,8 @@ namespace Roller.Core
 {
     public class Player : MonoBehaviour, ICollector
     {
-        int _points = 0;
-        
+        int _points;
+
         void OnEnable()
         {
             Collectable.Collected += Collect;

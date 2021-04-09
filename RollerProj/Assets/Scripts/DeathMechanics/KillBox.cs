@@ -1,4 +1,4 @@
-﻿using Roller.Extensions;
+﻿using Roller.Extensions.Unity;
 using Roller.Movement;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,7 +12,7 @@ namespace Roller.DeathMechanics
         [SerializeField] PlayerMovementController character;
         [SerializeField] float killBoxDepth;
         [SerializeField] UnityEvent onEntered;
-        
+
         void OnEnable()
         {
             character.OnGrounded += FollowWithYOffset;
@@ -25,26 +25,30 @@ namespace Roller.DeathMechanics
             character.OnNotGrounded -= FollowWithoutYOffset;
         }
 
-        public void ReloadScene(int sceneBuildIndex)
-        {
-            SceneManager.LoadScene(sceneBuildIndex);
-        }
-
         void OnTriggerEnter(Collider other)
         {
             onEntered?.Invoke();
         }
 
+        public void ReloadScene(int sceneBuildIndex)
+        {
+            SceneManager.LoadScene(sceneBuildIndex);
+        }
+
         // Will run when grounded
-        void FollowWithYOffset() =>
+        void FollowWithYOffset()
+        {
             transform.position = following.position.WithOffset(
                 yOffset: killBoxDepth
             );
+        }
 
         // Will run when not grounded
-        void FollowWithoutYOffset() =>
+        void FollowWithoutYOffset()
+        {
             transform.position = following.position.With(
                 newY: transform.position.y
             );
+        }
     }
 }

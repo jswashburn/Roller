@@ -8,21 +8,21 @@ namespace Roller.Environment.Items
         Coin = 5,
         Diamond = 100
     }
-    
+
     public class Collectable : MonoBehaviour
     {
         [SerializeField] Item itemType;
-
-        public static event Action<Item> Collected;
         
+        public static event Action<Item> Collected;
+
         void OnTriggerEnter(Collider other)
         {
             bool isCollector = other.gameObject.GetComponentInChildren<ICollector>() != null;
-            
+
             if (isCollector)
                 Collected?.Invoke(itemType);
-            
-            Destroy(transform.root.gameObject);
+
+            Destroy(transform.parent.gameObject);
         }
     }
 }

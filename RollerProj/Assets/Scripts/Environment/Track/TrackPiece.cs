@@ -5,7 +5,7 @@ namespace Roller.Environment.Track
     public class TrackPiece : MonoBehaviour
     {
         public Transform cycleTrigger;
-        
+
         public bool IsActive => transform.parent.gameObject.activeSelf;
 
         public void DeActivate()

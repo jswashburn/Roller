@@ -44,6 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c8a3736cefe13640ba0e0a63cdfae8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnableItems:
+  - {fileID: 3514303052124759512, guid: 0fa494ec31a6eb248a6ebd68d9716940, type: 3}
+  itemSpawnHeight: 5
+  spawnPercentage: 50
   cycleTrigger: {fileID: 4836885738144764305}
 --- !u!1 &5997448434895964441
 GameObject:

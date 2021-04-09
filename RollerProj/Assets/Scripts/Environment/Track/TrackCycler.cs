@@ -18,9 +18,9 @@ namespace Roller.Environment.Track
 
         void Awake()
         {
-            TrackPiece[] trackPieces = GetComponentsInChildren<TrackPiece>(includeInactive: true);
+            TrackPiece[] trackPieces = GetComponentsInChildren<TrackPiece>(true);
             Vector3 initialPosition = trackStart.position;
-            
+
             _track = new Track(trackPieces, initialPosition);
             _track.PositionAt(initialPosition, NextGap, NextHeight);
         }

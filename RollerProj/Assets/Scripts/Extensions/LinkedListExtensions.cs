@@ -22,7 +22,7 @@ namespace Roller.Extensions
                     nodes.Append($"{nodes}]");
                     return nodes.ToString();
                 }
-            }       
+            }
         }
 
         public static void ForEachValue<T>(this LinkedList<T> original, Action<T> action)

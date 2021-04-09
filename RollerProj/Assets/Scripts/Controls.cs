@@ -5,13 +5,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using Object = UnityEngine.Object;
 
 namespace Roller
 {
-    public class @Controls : IInputActionCollection, IDisposable
+    public class Controls : IInputActionCollection, IDisposable
     {
-        public InputActionAsset asset { get; }
-        public @Controls()
+        // Gameplay
+        readonly InputActionMap m_Gameplay;
+        readonly InputAction m_Gameplay_Brake;
+        readonly InputAction m_Gameplay_CameraRotation;
+        readonly InputAction m_Gameplay_Debug;
+        readonly InputAction m_Gameplay_Jump;
+        readonly InputAction m_Gameplay_Move;
+        readonly InputAction m_Gameplay_Sprint;
+        IGameplayActions m_GameplayActionsCallbackInterface;
+
+        public Controls()
         {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""Controls"",
@@ -142,18 +152,21 @@ namespace Roller
     ""controlSchemes"": []
 }");
             // Gameplay
-            m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-            m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
-            m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
-            m_Gameplay_Brake = m_Gameplay.FindAction("Brake", throwIfNotFound: true);
-            m_Gameplay_CameraRotation = m_Gameplay.FindAction("CameraRotation", throwIfNotFound: true);
-            m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
-            m_Gameplay_Debug = m_Gameplay.FindAction("Debug", throwIfNotFound: true);
+            m_Gameplay = asset.FindActionMap("Gameplay", true);
+            m_Gameplay_Move = m_Gameplay.FindAction("Move", true);
+            m_Gameplay_Jump = m_Gameplay.FindAction("Jump", true);
+            m_Gameplay_Brake = m_Gameplay.FindAction("Brake", true);
+            m_Gameplay_CameraRotation = m_Gameplay.FindAction("CameraRotation", true);
+            m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", true);
+            m_Gameplay_Debug = m_Gameplay.FindAction("Debug", true);
         }
+
+        public InputActionAsset asset { get; }
+        public GameplayActions Gameplay => new GameplayActions(this);
 
         public void Dispose()
         {
-            UnityEngine.Object.Destroy(asset);
+            Object.Destroy(asset);
         }
 
         public InputBinding? bindingMask
@@ -195,78 +208,93 @@ namespace Roller
             asset.Disable();
         }
 
-        // Gameplay
-        private readonly InputActionMap m_Gameplay;
-        private IGameplayActions m_GameplayActionsCallbackInterface;
-        private readonly InputAction m_Gameplay_Move;
-        private readonly InputAction m_Gameplay_Jump;
-        private readonly InputAction m_Gameplay_Brake;
-        private readonly InputAction m_Gameplay_CameraRotation;
-        private readonly InputAction m_Gameplay_Sprint;
-        private readonly InputAction m_Gameplay_Debug;
         public struct GameplayActions
         {
-            private @Controls m_Wrapper;
-            public GameplayActions(@Controls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Move => m_Wrapper.m_Gameplay_Move;
-            public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
-            public InputAction @Brake => m_Wrapper.m_Gameplay_Brake;
-            public InputAction @CameraRotation => m_Wrapper.m_Gameplay_CameraRotation;
-            public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
-            public InputAction @Debug => m_Wrapper.m_Gameplay_Debug;
-            public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
+            readonly Controls m_Wrapper;
+
+            public GameplayActions(Controls wrapper)
+            {
+                m_Wrapper = wrapper;
+            }
+
+            public InputAction Move => m_Wrapper.m_Gameplay_Move;
+            public InputAction Jump => m_Wrapper.m_Gameplay_Jump;
+            public InputAction Brake => m_Wrapper.m_Gameplay_Brake;
+            public InputAction CameraRotation => m_Wrapper.m_Gameplay_CameraRotation;
+            public InputAction Sprint => m_Wrapper.m_Gameplay_Sprint;
+            public InputAction Debug => m_Wrapper.m_Gameplay_Debug;
+
+            public InputActionMap Get()
+            {
+                return m_Wrapper.m_Gameplay;
+            }
+
+            public void Enable()
+            {
+                Get().Enable();
+            }
+
+            public void Disable()
+            {
+                Get().Disable();
+            }
+
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(GameplayActions set) { return set.Get(); }
+
+            public static implicit operator InputActionMap(GameplayActions set)
+            {
+                return set.Get();
+            }
+
             public void SetCallbacks(IGameplayActions instance)
             {
                 if (m_Wrapper.m_GameplayActionsCallbackInterface != null)
                 {
-                    @Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                    @Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                    @Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                    @Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                    @Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                    @Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                    @Brake.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBrake;
-                    @Brake.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBrake;
-                    @Brake.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBrake;
-                    @CameraRotation.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraRotation;
-                    @CameraRotation.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraRotation;
-                    @CameraRotation.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraRotation;
-                    @Sprint.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
-                    @Sprint.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
-                    @Sprint.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
-                    @Debug.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDebug;
-                    @Debug.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDebug;
-                    @Debug.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDebug;
+                    Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
+                    Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
+                    Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
+                    Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                    Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                    Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                    Brake.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBrake;
+                    Brake.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBrake;
+                    Brake.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBrake;
+                    CameraRotation.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraRotation;
+                    CameraRotation.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraRotation;
+                    CameraRotation.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraRotation;
+                    Sprint.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
+                    Sprint.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
+                    Sprint.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
+                    Debug.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDebug;
+                    Debug.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDebug;
+                    Debug.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDebug;
                 }
+
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Move.started += instance.OnMove;
-                    @Move.performed += instance.OnMove;
-                    @Move.canceled += instance.OnMove;
-                    @Jump.started += instance.OnJump;
-                    @Jump.performed += instance.OnJump;
-                    @Jump.canceled += instance.OnJump;
-                    @Brake.started += instance.OnBrake;
-                    @Brake.performed += instance.OnBrake;
-                    @Brake.canceled += instance.OnBrake;
-                    @CameraRotation.started += instance.OnCameraRotation;
-                    @CameraRotation.performed += instance.OnCameraRotation;
-                    @CameraRotation.canceled += instance.OnCameraRotation;
-                    @Sprint.started += instance.OnSprint;
-                    @Sprint.performed += instance.OnSprint;
-                    @Sprint.canceled += instance.OnSprint;
-                    @Debug.started += instance.OnDebug;
-                    @Debug.performed += instance.OnDebug;
-                    @Debug.canceled += instance.OnDebug;
+                    Move.started += instance.OnMove;
+                    Move.performed += instance.OnMove;
+                    Move.canceled += instance.OnMove;
+                    Jump.started += instance.OnJump;
+                    Jump.performed += instance.OnJump;
+                    Jump.canceled += instance.OnJump;
+                    Brake.started += instance.OnBrake;
+                    Brake.performed += instance.OnBrake;
+                    Brake.canceled += instance.OnBrake;
+                    CameraRotation.started += instance.OnCameraRotation;
+                    CameraRotation.performed += instance.OnCameraRotation;
+                    CameraRotation.canceled += instance.OnCameraRotation;
+                    Sprint.started += instance.OnSprint;
+                    Sprint.performed += instance.OnSprint;
+                    Sprint.canceled += instance.OnSprint;
+                    Debug.started += instance.OnDebug;
+                    Debug.performed += instance.OnDebug;
+                    Debug.canceled += instance.OnDebug;
                 }
             }
         }
-        public GameplayActions @Gameplay => new GameplayActions(this);
+
         public interface IGameplayActions
         {
             void OnMove(InputAction.CallbackContext context);
