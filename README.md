@@ -10,32 +10,37 @@ This time around I decided to use *my own 3d models*. I've been learning blender
   
   <dt>Infinite-scrolling track</dt>
   <dd>
-    The infinite scrolling track works, now it's just a matter of creating more track pieces in blender. The next step is to make it work with other objects, like collectable items. I also need to add some variation in the spawn height of the pieces, so the player isn't constantly moving in a straight line.
+    Adding more track pieces. Different pieces will vary in appearance and functionality. Some will be extra bouncy and some will kill the player
   </dd>
   
   <dt>Asteroids / Space debris</dt>
   <dd>
-    Asteroid particles are working, now just need to add some more asteroid meshes so they don't all look the same. Going to add a few more things as well, like sattelites.
+    Modeling and adding more asteroids, as well as a few other space debris things
   </dd>
   
-  <dt>Gameplay loop</dt>
+  <dt>New gameplay elements</dt>
   <dd>
-    Thinking in general about how the game is going to play out, new gameplay ideas, progression ideas. The main idea is this: Run away from the thing chasing you for as long as possible, collect coins along the way, and purchase new skins with your coins.
+    At the moment, you can roll along a track and collect items, fall off the track and start over.
+    I need some more gameplay elements. Here's what I'm thinking:
+    <ul>
+      <li> An enemy that follows you and shoots at you </li>
+      <li> A shop allowing you to buy skins with your hard earned coins </li>
+      <li> Obstacles on the track </li>
+    </ul>
   </dd>
   
   <dt>Enemy</dt>
   <dd>
-    Need to come up with an enemy that will chase the player.
+    Modeling, considering mechanics
   </dd>
   
   <dt>Movement</dt>
   <dd>
-    Refining the player movement, getting movement to feel right and fun.
+    Refining the player movement, getting movement to feel less sluggish
   </dd>
   
   <dt>Title</dt>
   <dd>
-    Title could use some work. Need ideas, but we'll see once more game is developed
+    I need a better title than "Roller"
   </dd>
-  
 </dl>
