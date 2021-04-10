@@ -17,10 +17,9 @@ namespace Roller.Core
             Collectable.Collected -= Collect;
         }
 
-        public void Collect(Item item)
+        public void Collect(ICollectable collectable)
         {
-            _points += (int) item;
-            Debug.Log($"Player Collected {item}\nPoints: {_points}");
+            _points += collectable.Value;
         }
     }
 }

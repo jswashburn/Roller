@@ -2,6 +2,6 @@
 {
     public interface ICollector
     {
-        void Collect(Item itemType);
+        void Collect(ICollectable collectable);
     }
 }

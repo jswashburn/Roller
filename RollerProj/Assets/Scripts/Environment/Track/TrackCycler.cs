@@ -5,30 +5,26 @@ namespace Roller.Environment.Track
     public class TrackCycler : MonoBehaviour
     {
         [SerializeField] Transform player;
-        [SerializeField] Transform trackStart;
         [SerializeField] float minGap;
         [SerializeField] float gapVariation;
         [SerializeField] float heightVariation;
 
-        Track _track;
+        TrackPool _trackPool;
 
-        bool PlayerCrossedCyclePoint => player.transform.position.x >= _track.CurrentTriggerPoint.position.x;
-        float NextGap => minGap + Random.Range(0, gapVariation);
-        float NextHeight => Random.Range(-heightVariation, heightVariation);
+        bool PlayerCrossedCyclePoint => player.transform.position.x >= _trackPool.CurrentTriggerPoint.position.x;
 
         void Awake()
         {
             TrackPiece[] trackPieces = GetComponentsInChildren<TrackPiece>(true);
-            Vector3 initialPosition = trackStart.position;
+            var chosenSpacingOptions = new SpacingOptions(minGap, gapVariation, heightVariation);
 
-            _track = new Track(trackPieces, initialPosition);
-            _track.PositionAt(initialPosition, NextGap, NextHeight);
+            _trackPool = new TrackPool(trackPieces, chosenSpacingOptions);
         }
 
         void Update()
         {
-            if (PlayerCrossedCyclePoint)
-                _track.CycleTrack(NextGap, NextHeight);
+            if (_trackPool.ActiveCount >= 2 && PlayerCrossedCyclePoint)
+                _trackPool.Cycle();
         }
     }
 }

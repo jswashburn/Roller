@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Roller.Environment.Track;
+using Roller.Extensions.Unity;
+using UnityEngine;
 
 namespace Roller.Extensions
 {
@@ -34,6 +37,20 @@ namespace Roller.Extensions
                 action(currentNode.Value);
                 currentNode = currentNode.Next;
             }
+        }
+
+        public static void PositionEach<T>(this LinkedList<T> original,
+            SpacingOptions opts) where T : MonoBehaviour
+        {
+            // Use first items initial position to start
+            Vector3 nextPosition = original.First.Value.transform.position;
+
+            original.ForEachValue(monoBehaviour =>
+            {
+                monoBehaviour.transform.parent.position = nextPosition;
+
+                nextPosition = nextPosition.WithOffset(opts.NextGap, opts.NextHeight);
+            });
         }
 
         public static void Cycle<T>(this LinkedList<T> original, T newItem)
