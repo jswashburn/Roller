@@ -3,26 +3,21 @@ using UnityEngine;
 
 namespace Roller.Environment.Items
 {
-    public enum Item
+    [RequireComponent(typeof(Collider))]
+    public abstract class Collectable : Item, ICollectable
     {
-        Coin = 5,
-        Diamond = 100
-    }
+        public abstract int Value { get; }
 
-    public class Collectable : MonoBehaviour
-    {
-        [SerializeField] Item itemType;
-        
-        public static event Action<Item> Collected;
-
-        void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider other)
         {
             bool isCollector = other.gameObject.GetComponentInChildren<ICollector>() != null;
 
             if (isCollector)
-                Collected?.Invoke(itemType);
+                Collected?.Invoke(this);
 
-            Destroy(transform.parent.gameObject);
+            Deactivate();
         }
+
+        public static event Action<Collectable> Collected;
     }
 }

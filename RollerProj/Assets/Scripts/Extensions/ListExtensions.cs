@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -15,9 +14,19 @@ namespace Roller.Extensions
             return thing;
         }
 
-        public static int RandIdx(this IList original)
+        public static int GetRandomIdx<T>(this IList<T> original)
         {
             return Random.Range(0, original.Count - 1);
+        }
+
+        public static T PopRandom<T>(this IList<T> original)
+        {
+            return original.Pop(original.GetRandomIdx());
+        }
+
+        public static T GetRandom<T>(this IList<T> original)
+        {
+            return original[original.GetRandomIdx()];
         }
 
         public static string Stringify<T>(this IList<T> original)
