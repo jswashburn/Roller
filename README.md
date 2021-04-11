@@ -1,6 +1,8 @@
 # Roller
 My second unity game 😄
 
+![img](https://i.imgur.com/1MYfgaZ.jpg)
+
 This is a game where you play as a spherical character and roll your way through obstacles and challenges in order to get points and rewards. I just started this one and I'm excited to see where it ends up. I think a lot of the inspiration is going to come from Temple Run.
 
 This time around I decided to use *my own 3d models*. I've been learning blender (and having lots of fun doing so) so I figured I would model my own character skins, environment stuff, and props.
