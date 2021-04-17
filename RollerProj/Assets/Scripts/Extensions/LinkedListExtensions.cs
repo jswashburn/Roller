@@ -40,14 +40,14 @@ namespace Roller.Extensions
         }
 
         public static void PositionEach<T>(this LinkedList<T> original,
-            SpacingOptions opts) where T : MonoBehaviour
+            SpacingOptions opts) where T : Component
         {
             // Use first items initial position to start
             Vector3 nextPosition = original.First.Value.transform.position;
 
-            original.ForEachValue(monoBehaviour =>
+            original.ForEachValue(component =>
             {
-                monoBehaviour.transform.parent.position = nextPosition;
+                component.transform.parent.position = nextPosition;
 
                 nextPosition = nextPosition.WithOffset(opts.NextGap, opts.NextHeight);
             });

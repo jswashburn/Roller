@@ -1,5 +1,6 @@
 ﻿using System;
 using Roller.Extensions.Unity;
+using Roller.Core.Audio;
 using UnityEngine;
 
 namespace Roller.Movement
@@ -31,21 +32,21 @@ namespace Roller.Movement
             Jump(moveOptions);
         }
 
-        public event Action OnNotGrounded;
-        public event Action OnGrounded;
+        public event Action PlayerNotGrounded;
+        public event Action PlayerGrounded;
 
         void Move(IMoveOption moveOptions)
         {
             if (Grounded)
             {
-                OnGrounded?.Invoke();
+                PlayerGrounded?.Invoke();
                 _jumpsAvailable = extraJumps;
 
                 _character.MoveTowards(moveOptions.MoveDirection * moveSpeed, maxSpeed);
             }
             else
             {
-                OnNotGrounded?.Invoke();
+                PlayerNotGrounded?.Invoke();
 
                 if (airControl)
                     _character.MoveTowards(moveOptions.MoveDirection * moveSpeed, maxSpeed);

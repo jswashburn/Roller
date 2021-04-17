@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnHeight: 1.4
+  pickupSound: pickup_coin
 --- !u!65 &6693043443767097724
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -72,7 +72,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937896783539908203}
-  m_Mesh: {fileID: 2339353592663843260, guid: 6cd3bee2cd979b042a70d6f2e2a6e933, type: 3}
+  m_Mesh: {fileID: 2339353592663843260, guid: 61c31d9ea090f30499ff3c6801e579be, type: 3}
 --- !u!23 &6184913940888999675
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -163,6 +163,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1500404741269926306}
     m_Modifications:
+    - target: {fileID: 800135145834667636, guid: 0618a42794794434797b23ae0ed46220,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1526393996350038580, guid: 0618a42794794434797b23ae0ed46220,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -228,6 +233,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6026369768082910142, guid: 0618a42794794434797b23ae0ed46220,
+        type: 3}
+      propertyPath: trackPieceCollider
+      value: 
+      objectReference: {fileID: 7826535358583396423}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0618a42794794434797b23ae0ed46220, type: 3}
 --- !u!4 &6544731770611701487 stripped

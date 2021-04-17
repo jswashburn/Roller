@@ -15,14 +15,14 @@ namespace Roller.DeathMechanics
 
         void OnEnable()
         {
-            character.OnGrounded += FollowWithYOffset;
-            character.OnNotGrounded += FollowWithoutYOffset;
+            character.PlayerGrounded += FollowWithYOffset;
+            character.PlayerNotGrounded += FollowWithoutYOffset;
         }
 
         void OnDisable()
         {
-            character.OnGrounded -= FollowWithYOffset;
-            character.OnNotGrounded -= FollowWithoutYOffset;
+            character.PlayerGrounded -= FollowWithYOffset;
+            character.PlayerNotGrounded -= FollowWithoutYOffset;
         }
 
         void OnTriggerEnter(Collider other)
